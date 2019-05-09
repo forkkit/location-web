@@ -13,8 +13,8 @@ import (
 	"github.com/micro/go-web"
 	"golang.org/x/net/context"
 
-	common "github.com/micro/geo-srv/proto"
-	loc "github.com/micro/geo-srv/proto/location"
+	common "github.com/microhq/geo-srv/proto"
+	loc "github.com/microhq/geo-srv/proto/location"
 )
 
 type Feature struct {
