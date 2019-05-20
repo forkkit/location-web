@@ -133,7 +133,7 @@ func objectHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	service := web.NewService(
-		web.Name("go.micro.web.geo"),
+		web.Name("go.micro.web.location"),
 		web.Version("latest"),
 	)
 
