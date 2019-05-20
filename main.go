@@ -34,7 +34,7 @@ type Route struct {
 }
 
 var (
-	Name     = "go.micro.web.geo"
+	Name     = "go.micro.web.location"
 	Address  = "0.0.0.0:9090"
 	Interval = time.Minute
 )
