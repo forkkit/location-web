@@ -1,5 +1,5 @@
-# Geo Web
+# Location Web
 
-This is an example of using the geo srv for tracking objects
+The location web app is used for geo location tracking.
 
 ![img](ss.png)
