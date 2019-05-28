@@ -1,13 +1,11 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoiY2h1aG5rIiwiYSI6ImNpZzE0dnZ1aTBuZDR1c201MjZ2c3FxZXIifQ.fGaU0vniCGaUlmIvIFez3A';
-var lat = 51.513911;;
-var lon = -0.110389;
-var map = L.mapbox.map('map', 'mapbox.streets').setView([lat, lon], 15);
+var map = L.mapbox.map('map', 'mapbox.streets');
 var url = window.location.href + "/objects";
 var objMap = {};
 
-function getLocation(loadObjects) {
+function getLocation(load) {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(loadObjects);
+	navigator.geolocation.getCurrentPosition(load);
     } else {
 	return false;
     }
@@ -47,14 +45,39 @@ function renderObjects(objs) {
 }
 
 function loadLoop() {
+    getLocation(function(loc) {
+	var pos = loc.coords;
+        var marker = objMap['local'];
+        marker.setLatLng(L.latLng(pos.latitude, pos.longitude));
+    });
+
     var ctr = map.getCenter()
     loadObjects(ctr.lat, ctr.lng);
 
     setTimeout(function () {
         loadLoop();
-    }, 5000);
+    }, 1000);
 }
 
 $(document).ready(function() {
-    loadLoop()
+    // set pin
+    getLocation(function(loc) {
+	var pos = loc.coords;
+
+	// set view
+        map.setView([pos.latitude, pos.longitude], 15);
+
+	// set local marker
+	var marker = L.marker([pos.latitude, pos.longitude], {
+	    icon: L.mapbox.marker.icon({
+	        'marker-color': '#3bb2d0'
+            })
+	});
+
+        marker.addTo(map);
+        objMap['local'] = marker;
+
+	// interval
+        loadLoop();
+    });
 });
